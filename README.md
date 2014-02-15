@@ -15,16 +15,16 @@ I will show you how to persist your objects in 4 simple steps.
 
 1 - Annotate the classes you want to persist with the @Sleeper annotation:
 
-@Sleeper
-public class Kid 
+	@Sleeper
+	public class Kid 
 
 2 - Create a Long or long field and annotate is with the @SleeperId annotation:
 
-@Sleeper
-public class Kid {
-	@SleeperId
-	private long id;
-}
+	@Sleeper
+	public class Kid {
+		@SleeperId
+		private long id;
+	}
 
 The name of the field does not matter;
 The visibility of the field does not matter;
@@ -36,20 +36,20 @@ The reason for this being this way is, the programmer can use any connection poo
 
 This is a very simple implementatin of the BedProvider that works:
 
-public class SimpleBedProvider extends BedProvider {
-	static  {
-		try {
-			Class.forName("org.hsqldb.jdbc.JDBCDriver");
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
+	public class SimpleBedProvider extends BedProvider {
+		static  {
+			try {
+				Class.forName("org.hsqldb.jdbc.JDBCDriver");
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			}
+		}
+	
+		@Override
+		public Connection getConnection() throws SQLException {
+			return DriverManager.getConnection("jdbc:hsqldb:hsql://localhost/", "SA", "");
 		}
 	}
-
-	@Override
-	public Connection getConnection() throws SQLException {
-		return DriverManager.getConnection("jdbc:hsqldb:hsql://localhost/", "SA", "");
-	}
-}
 
 4 - Send your object to bed:
 
