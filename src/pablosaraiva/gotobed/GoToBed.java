@@ -1,10 +1,7 @@
 package pablosaraiva.gotobed;
 
 import java.lang.reflect.Field;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.Set;
 
 import org.reflections.Reflections;
@@ -17,7 +14,8 @@ import pablosaraiva.gotobed.annotations.SleeperId;
 public class GoToBed {	
 	private BedProvider bedProvider;
 	
-	public GoToBed(BedProvider bedProvider) {		this.bedProvider = bedProvider;
+	public GoToBed(BedProvider bedProvider) {		
+		this.bedProvider = bedProvider;
 
 		Reflections reflections = new Reflections();
 		Set<Class<?>> sleeperClasses = reflections.getTypesAnnotatedWith(Sleeper.class);
@@ -42,8 +40,13 @@ public class GoToBed {
 
 	private void insert(Object obj) throws SQLException {
 		Connection conn = bedProvider.getConnection();
-//		StringBuilder sb = new StringBuilder();
-//		sb.append("INSERT INTO " )
+		StringBuilder sb = new StringBuilder();
+		sb.append("INSERT INTO ");
+		sb.append(tableNameFor(obj.getClass()));
+		sb.append("ID");
+//		for (Field f: obj.getClass().getDeclaredFields()) {
+//			
+//		}
 		System.out.println("will insert");
 		conn.close();
 	}
@@ -168,8 +171,8 @@ public class GoToBed {
 	private boolean existsColumnFor(Field f) throws SQLException {
 		boolean exists;
 		Connection conn = bedProvider.getConnection();
-		Statement st = conn.createStatement();
-		ResultSet rs = st.executeQuery("SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '"+tableNameFor(f.getDeclaringClass())+"' AND  COLUMN_NAME = '"+columnNameFor(f)+"'");
+		DatabaseMetaData metadata = conn.getMetaData();
+		ResultSet rs = metadata.getColumns(null, null, tableNameFor(f.getDeclaringClass()), columnNameFor(f));
 		if (rs.next()) {
 			exists = true;
 		} else {
@@ -197,8 +200,8 @@ public class GoToBed {
 	private boolean existsTableForClass(Class<?> clazz) throws SQLException {
 		boolean exists;
 		Connection conn = bedProvider.getConnection();
-		Statement st = conn.createStatement();
-		ResultSet rs = st.executeQuery("SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = '"+tableNameFor(clazz)+"'");
+		DatabaseMetaData metadata = conn.getMetaData();
+		ResultSet rs = metadata.getTables(null, null, tableNameFor(clazz), null);
 		if (rs.next()) {
 			exists = true;
 		} else {
