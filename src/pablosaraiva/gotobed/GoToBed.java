@@ -1,10 +1,7 @@
 package pablosaraiva.gotobed;
 
 import java.lang.reflect.Field;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.Set;
 
 import org.reflections.Reflections;
@@ -104,11 +101,11 @@ public class GoToBed {
 	private static String getStringColumnTypeFor(Class<?> clazz) {
 		if (clazz == String.class) {
 			return "VARCHAR(128)";
-		} else if (clazz == Long.class) {
+		} else if (clazz == Long.class || clazz == Long.TYPE) {
 			return "BIGINT";
-		} else if (clazz == Integer.class) {
+		} else if (clazz == Integer.class || clazz == Integer.TYPE) {
 			return "INT";
-		} else if (clazz == Boolean.class) {
+		} else if (clazz == Boolean.class || clazz == Boolean.TYPE) {
 			return "BOOLEAN";
 		} else if (clazz == java.util.Date.class) {
 			return "DATE";
@@ -121,13 +118,58 @@ public class GoToBed {
 		return clazz.getSimpleName().toUpperCase();
 	}
 
-	private static void updateTableColumnsForFlass(Class<?> clazz) {
-		// TODO Auto-generated method stub
+	private static void updateTableColumnsForFlass(Class<?> clazz) throws SQLException {
+		for (Field f: clazz.getDeclaredFields()) {
+			if (isPersistableAndNotId(f)) {
+				if (!existsColumnFor(f)) {
+					createColumnFor(f);
+				}
+			}
+		}
 		
 	}
 
-	private static boolean existsTableForClass(Class<?> clazz) {
-		return false;
+	private static boolean existsColumnFor(Field f) throws SQLException {
+		boolean exists;
+		Connection conn = getConnection();
+		Statement st = conn.createStatement();
+		ResultSet rs = st.executeQuery("SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '"+tableNameFor(f.getDeclaringClass())+"' AND  COLUMN_NAME = '"+columnNameFor(f)+"'");
+		if (rs.next()) {
+			exists = true;
+		} else {
+			exists = false;
+		}
+		conn.close();
+		return exists;
+	}
+
+	private static void createColumnFor(Field f) throws SQLException {
+		StringBuilder sb = new StringBuilder();
+		sb.append("ALTER TABLE ");
+		sb.append(tableNameFor(f.getDeclaringClass()));
+		sb.append(" ADD ");
+		sb.append(columnNameFor(f));
+		sb.append(" ");
+		sb.append(getStringColumnTypeFor(f.getType()));
+		System.out.println(sb.toString());
+		Connection conn = getConnection();
+		Statement st = conn.createStatement();
+		st.execute(sb.toString());
+		conn.close();
+	}
+
+	private static boolean existsTableForClass(Class<?> clazz) throws SQLException {
+		boolean exists;
+		Connection conn = getConnection();
+		Statement st = conn.createStatement();
+		ResultSet rs = st.executeQuery("SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = '"+tableNameFor(clazz)+"'");
+		if (rs.next()) {
+			exists = true;
+		} else {
+			exists = false;
+		}
+		conn.close();
+		return exists;
 	}
 
 }

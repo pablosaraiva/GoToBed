@@ -9,10 +9,10 @@ public class Kid {
 	@Id
 	private long Id;
 	private String name;
+	private int age;
+
 	@DoNotSave
 	private String nickname;
-	
-	private int age;
 	
 	public String getName() {
 		return name;
