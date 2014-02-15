@@ -1,17 +1,17 @@
 GoToBed
 =======
 
-Java Persistence Made Easy
+####Java Persistence Made Easy
 
-WARNING: This is a library under early development stages. 
+####WARNING: This is a library under early development stages. 
 
 I hope to finish a usable version soon. :)
 
-THIS IS NOT READY FOR PRODUCTION ENVIRONMENTS.
+####THIS IS NOT READY FOR PRODUCTION ENVIRONMENTS.
 
 This is a very simple persistence library so the programmer can focus at the real problem instead of maintaining database related code.
 
-##I will show you how to persist your objects in 4 simple steps.
+##How to persist object in 4 simple steps
 
 ###1 - Annotate the classes you want to persist with the @Sleeper annotation:
 
@@ -59,7 +59,7 @@ This is a very simple implementatin of the BedProvider that works:
 	Kid k1 = new Kid();
 	gtb.sleep(k1);
 		
-##That's it. At this point, GoToBed already create your table and inserted your data.
+##That's it. At this point, GoToBed already created your table and inserted your data.
 
 ###What GoToBed can do:
 
