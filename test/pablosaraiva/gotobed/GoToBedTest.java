@@ -8,7 +8,8 @@ public class GoToBedTest {
 
 	@Test
 	public void test() {
-		GoToBed gtb = new GoToBed();
+		BedProvider provider = new MyBedProvider();
+		GoToBed gtb = new GoToBed(provider);
 		
 		Kid k1 = new Kid();
 		gtb.sleep(k1);
