@@ -10,7 +10,7 @@ public class GoToBedTest {
 
 	@Test
 	public void test() throws SQLException {
-		BedProvider provider = new MyBedProvider();
+		BedProvider provider = new SimpleBedProvider();
 		GoToBed gtb = new GoToBed(provider);
 		
 		Kid k1 = new Kid();

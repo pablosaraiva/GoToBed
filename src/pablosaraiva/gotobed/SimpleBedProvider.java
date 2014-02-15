@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 
-public class MyBedProvider extends BedProvider {
+public class SimpleBedProvider extends BedProvider {
 	static  {
 		try {
 			Class.forName("org.hsqldb.jdbc.JDBCDriver");
