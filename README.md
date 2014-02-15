@@ -53,11 +53,11 @@ This is a very simple implementatin of the BedProvider that works:
 
 4 - Send your object to bed:
 
-		BedProvider provider = new SimpleBedProvider();
-		GoToBed gtb = new GoToBed(provider);
+	BedProvider provider = new SimpleBedProvider();
+	GoToBed gtb = new GoToBed(provider);
 		
-		Kid k1 = new Kid();
-		gtb.sleep(k1);
+	Kid k1 = new Kid();
+	gtb.sleep(k1);
 		
 That's it. At this point, GoToBed already create your table and inserted your data.
 
