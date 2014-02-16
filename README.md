@@ -69,6 +69,42 @@ It can't get easier than this.
 
 		List<Kid> kids = gtb.wake(Kid.class);
 		
+##How to say goodbye to your objects
+
+###If you want  an object anymore, all you have to do is say goodbye
+
+It would be nice if real life were like this.
+
+	gtb.goodbye(newKidOnTheBlock);
+	
+This test case shows a object being created, consulted and then discarded.
+
+	@Test
+	public void testSayGoodbyeToOneKidItIsLikeSendingHimToCollege() throws BedException {
+		BedProvider provider = new SimpleBedProvider();
+		GoToBed gtb = new GoToBed(provider);
+		
+		Kid newKidOnTheBlock = new Kid();
+		newKidOnTheBlock.setName("Someone we don't know yet");
+		
+		List<Kid> kids;
+		
+		kids = gtb.wake(Kid.class);
+		assertFalse(kids.contains(newKidOnTheBlock));
+		assertTrue(newKidOnTheBlock.getId() == 0);
+
+		gtb.sleep(newKidOnTheBlock);
+		kids = gtb.wake(Kid.class);
+		assertTrue(kids.contains(newKidOnTheBlock));
+		assertTrue(newKidOnTheBlock.getId() > 0);
+
+		gtb.goodbye(newKidOnTheBlock);
+		kids = gtb.wake(Kid.class);
+		assertFalse(kids.contains(newKidOnTheBlock));
+		assertTrue(newKidOnTheBlock.getId() == 0);
+	}
+	
+		
 ###What GoToBed can do:
 
 Create tables to store your objects;
