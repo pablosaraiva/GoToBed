@@ -303,4 +303,39 @@ public class GoToBed {
 		return wakers;
 	}
 
+	public void goodbye(Object obj) throws BedException {
+		Long id;
+		try {
+			id = getIdFor(obj);
+			StringBuilder sb = new StringBuilder();
+			sb.append("DELETE FROM ");
+			sb.append(tableNameFor(obj.getClass()));
+			sb.append(" WHERE ID = ");
+			sb.append(id);
+			System.out.println(sb.toString());
+			Connection conn = bedProvider.getConnection();
+			Statement st = conn.createStatement();
+			st.execute(sb.toString());
+			setIdFor(obj, 0L);
+		} catch (IllegalArgumentException | IllegalAccessException | SQLException e) {
+			throw new BedException(e);
+		}
+
+	}
+
+	private void setIdFor(Object obj, Long id) throws IllegalArgumentException, IllegalAccessException {
+		Field f = getIdFieldFor(obj.getClass());
+		f.setAccessible(true);
+		f.set(obj, id);
+		f.setAccessible(false);
+	}
+
+	private Long getIdFor(Object obj) throws IllegalArgumentException, IllegalAccessException {
+		Field f = getIdFieldFor(obj.getClass());
+		f.setAccessible(true);
+		Long id = (Long) f.get(obj);
+		f.setAccessible(false);
+		return id;
+	}
+
 }

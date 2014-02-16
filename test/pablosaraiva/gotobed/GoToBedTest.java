@@ -1,5 +1,7 @@
 package pablosaraiva.gotobed;
 
+import static org.junit.Assert.*;
+
 import java.util.Date;
 import java.util.List;
 
@@ -32,6 +34,28 @@ public class GoToBedTest {
 		for (Kid kid: kids) {
 			System.out.println(kid.getId() + ": " + kid.getName());
 		}
+	}
+	
+	@Test
+	public void testSayGoodbyeToOneKidItIsLikeSendingHimToCollege() throws BedException {
+		Kid newKidOnTheBlock = new Kid();
+		newKidOnTheBlock.setName("Someone we don't know");
+		
+		List<Kid> kids;
+		
+		kids = gtb.wake(Kid.class);
+		assertFalse(kids.contains(newKidOnTheBlock));
+		assertTrue(newKidOnTheBlock.getId() == 0);
+
+		gtb.sleep(newKidOnTheBlock);
+		kids = gtb.wake(Kid.class);
+		assertTrue(kids.contains(newKidOnTheBlock));
+		assertTrue(newKidOnTheBlock.getId() > 0);
+
+		gtb.goodbye(newKidOnTheBlock);
+		kids = gtb.wake(Kid.class);
+		assertFalse(kids.contains(newKidOnTheBlock));
+		assertTrue(newKidOnTheBlock.getId() == 0);
 	}
 
 }

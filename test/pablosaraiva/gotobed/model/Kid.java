@@ -28,7 +28,6 @@ public class Kid {
 		this.name = name;
 	}
 
-
 	public Date getBirthdate() {
 		return birthdate;
 	}
@@ -36,5 +35,35 @@ public class Kid {
 	public void setBirthdate(Date birthdate) {
 		this.birthdate = birthdate;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (int) (myid ^ (myid >>> 32));
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Kid other = (Kid) obj;
+		if (myid != other.myid)
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		return true;
+	}
+	
+	
 
 }
