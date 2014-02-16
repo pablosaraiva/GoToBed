@@ -108,11 +108,35 @@ public class GoToBed {
 		return idField;
 	}
 
-	private void update(Object obj) {
-		System.out.println("will update");
+	private void update(Object obj) throws IllegalArgumentException, IllegalAccessException, SQLException {
+		List<Field> persistableFields = getPersistableFieldsFor(obj.getClass());
+		StringBuilder sb = new StringBuilder();
+		sb.append("UPDATE ");
+		sb.append(tableNameFor(obj.getClass()));
+		boolean first = true;
+		for (Field f: persistableFields) {
+			if (first) {
+				sb.append(" SET "); 
+				first = false;
+			} else {
+				sb.append(", ");
+			}
+			sb.append(columnNameFor(f));
+			sb.append(" = ?");
+		}
+		sb.append(" WHERE ID = ");
+		sb.append(getIdFor(obj));
+		System.out.println(sb.toString());
+		Connection conn = bedProvider.getConnection();
+		PreparedStatement ps = conn.prepareStatement(sb.toString());
+		for (int i = 0; i < persistableFields.size(); i++) {
+			Field f = persistableFields.get(i);
+			f.setAccessible(true);
+			ps.setObject(i+1, f.get(obj));
+			f.setAccessible(false);
+		}
+		ps.execute();
 	}
-	
-	
 
 	private boolean hasId(Object obj) throws IllegalArgumentException, IllegalAccessException {
 

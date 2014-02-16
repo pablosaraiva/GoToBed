@@ -57,5 +57,27 @@ public class GoToBedTest {
 		assertFalse(kids.contains(newKidOnTheBlock));
 		assertTrue(newKidOnTheBlock.getId() == 0);
 	}
+	
+	@Test
+	public void testUpdateObject() throws BedException {
+		List<Kid> kids;
+		
+		Kid kid = new Kid();
+		kid.setName("Jon Doe");
+		gtb.sleep(kid);
+		long thisKidId = kid.getId();
+
+		kids = gtb.wake(Kid.class);
+		assertTrue(kids.contains(kid));
+		
+		kid.setName("John Doe");
+		kids = gtb.wake(Kid.class);
+		assertFalse(kids.contains(kid));
+		
+		gtb.sleep(kid);
+		kids = gtb.wake(Kid.class);
+		assertTrue(kids.contains(kid));
+		assertEquals(thisKidId, kid.getId());
+	}
 
 }

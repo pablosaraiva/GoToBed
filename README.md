@@ -61,7 +61,13 @@ This is a very simple implementatin of the BedProvider that works:
 		
 That's it. At this point, GoToBed already created your table and inserted your data.
 
-##How to get your objects back from the database
+##Updating objects is just that easy
+
+###Just tell them to sleep again
+
+	gtb.sleep(k1);
+
+##How to get your objects back from the database?
 
 ###All you have to do is ask GoToBed to wake'em up. 
 
