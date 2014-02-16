@@ -6,7 +6,7 @@
 	<classpathentry kind="lib" path="lib/guava-16.0.1.jar"/>
 	<classpathentry kind="lib" path="lib/hsqldb.jar"/>
 	<classpathentry kind="lib" path="lib/javassist.jar"/>
-	<classpathentry kind="lib" path="lib/reflections-0.9.9-RC1-uberjar.jar"/>
+	<classpathentry kind="lib" path="lib/reflections-0.9.9-RC1.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
