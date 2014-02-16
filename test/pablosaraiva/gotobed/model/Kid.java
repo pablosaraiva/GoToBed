@@ -15,6 +15,10 @@ public class Kid {
 
 	@DoNotSave
 	private String nickname;
+	
+	public long getId() {
+		return myid;
+	}
 
 	public String getName() {
 		return name;
