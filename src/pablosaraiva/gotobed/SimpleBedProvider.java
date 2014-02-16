@@ -16,7 +16,7 @@ public class SimpleBedProvider extends BedProvider {
 
 	@Override
 	public Connection getConnection() throws SQLException {
-		return DriverManager.getConnection("jdbc:hsqldb:hsql://localhost/", "SA", "");
+		return DriverManager.getConnection("jdbc:hsqldb:mem:mymemdb", "SA", "");
 	}
 
 
