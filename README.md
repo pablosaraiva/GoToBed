@@ -59,22 +59,32 @@ This is a very simple implementatin of the BedProvider that works:
 	Kid k1 = new Kid();
 	gtb.sleep(k1);
 		
-##That's it. At this point, GoToBed already created your table and inserted your data.
+That's it. At this point, GoToBed already created your table and inserted your data.
 
+##How to get your objects back from the database
+
+##All you have to do is ask GoToBed to wake'em up. 
+
+It can't get easier than this.
+
+		List<Kid> kids = gtb.wake(Kid.class);
+		
 ###What GoToBed can do:
 
 Create tables to store your objects;
 Alter tables as your objects gain new fields;
 Store String, long, int, Long, Integer and Date fields.
+Read your objects back from the database;
 
 ###What GoToBed will do soon:
 
-Read your objects back from the database;
 Store fields that relate to other Sleepers;
+Filter objects you want to get back, so you don't have to load all your objects of a single type at once.
 
 ###What GoToBed will not do (at least soon):
 
 Create indexes to optimize queries (although you can do it yourself after the tables are created);
+Deal with fancy database relationships. This is meant to be simple.
 
 ##Contacts
 
