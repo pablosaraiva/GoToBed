@@ -63,7 +63,7 @@ That's it. At this point, GoToBed already created your table and inserted your d
 
 ##How to get your objects back from the database
 
-##All you have to do is ask GoToBed to wake'em up. 
+###All you have to do is ask GoToBed to wake'em up. 
 
 It can't get easier than this.
 
