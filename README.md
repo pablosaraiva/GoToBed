@@ -40,7 +40,7 @@ The memory provider gives you a database that will run as long as your applicati
 
 The file provider gives you a hypersonic sql database stored at your local disk.
 
-####3.4 Create your own provider
+####3.3 Create your own provider
 
 This way you can create your own bed provider that gives connections to whatever database you want to use.
 
