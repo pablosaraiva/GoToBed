@@ -1,7 +1,7 @@
 GoToBed
 =======
 
-####Java Persistence Made Easy
+####Java ORM Made Easy
 
 ####WARNING: This is a library under early development stages. 
 
