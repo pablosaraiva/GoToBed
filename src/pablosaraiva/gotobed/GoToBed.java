@@ -11,6 +11,7 @@ import org.reflections.Reflections;
 import pablosaraiva.gotobed.annotations.DoNotSave;
 import pablosaraiva.gotobed.annotations.Sleeper;
 import pablosaraiva.gotobed.annotations.SleeperId;
+import pablosaraiva.gotobed.bedproviders.BedProvider;
 import pablosaraiva.gotobed.exception.BedException;
 
 public class GoToBed {

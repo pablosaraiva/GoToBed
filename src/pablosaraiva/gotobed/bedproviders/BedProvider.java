@@ -1,4 +1,4 @@
-package pablosaraiva.gotobed;
+package pablosaraiva.gotobed.bedproviders;
 
 import java.sql.Connection;
 import java.sql.SQLException;

@@ -8,6 +8,8 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+import pablosaraiva.gotobed.bedproviders.BedProvider;
+import pablosaraiva.gotobed.bedproviders.FileBedProvider;
 import pablosaraiva.gotobed.exception.BedException;
 import pablosaraiva.gotobed.model.Kid;
 
@@ -16,7 +18,7 @@ public class GoToBedTest {
 
 	@Before
 	public void init() {
-		BedProvider provider = new SimpleBedProvider();
+		BedProvider provider = new FileBedProvider();
 		gtb = new GoToBed(provider);
 	}
 

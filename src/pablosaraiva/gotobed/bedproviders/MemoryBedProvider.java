@@ -1,11 +1,11 @@
-package pablosaraiva.gotobed;
+package pablosaraiva.gotobed.bedproviders;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 
-public class SimpleBedProvider extends BedProvider {
+public class MemoryBedProvider extends BedProvider {
 	static  {
 		try {
 			Class.forName("org.hsqldb.jdbc.JDBCDriver");
