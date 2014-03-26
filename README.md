@@ -30,13 +30,25 @@ The name of the field does not matter;
 The visibility of the field does not matter;
 GoToBed does not need getter and setter methods (you can create them if you want to).
 
-###3 - You need to extend the BedProvider class so you can give this library database connections:
+###3 - Choose a bed provider or create one
 
-The reason for this being this way is, the programmer can use any connection pool, connections strings and whatever he wants. All this library needs is a place where it can request connections.
+####3.1 MemoryBedProvider
+
+The memory provider gives you a database that will run as long as your application is running. It is well suited for cache.
+
+####3.2 FileBedProvider
+
+The file provider gives you a hypersonic sql database stored at your local disk.
+
+####3.4 Create your own provider
+
+This way you can create your own bed provider that gives connections to whatever database you want to use.
+
+######Currently, GoToBed is only tested in Hypersonic Database.
 
 This is a very simple implementatin of the BedProvider that works:
 
-	public class SimpleBedProvider extends BedProvider {
+	public class SampleBedProvider extends BedProvider {
 		static  {
 			try {
 				Class.forName("org.hsqldb.jdbc.JDBCDriver");
@@ -53,7 +65,7 @@ This is a very simple implementatin of the BedProvider that works:
 
 ###4 - Send your object to bed:
 
-	BedProvider provider = new SimpleBedProvider();
+	BedProvider provider = new MemoryBedProvider();
 	GoToBed gtb = new GoToBed(provider);
 		
 	Kid k1 = new Kid();
@@ -77,7 +89,7 @@ It can't get easier than this.
 		
 ##How to say goodbye to your objects
 
-###If you want  an object anymore, all you have to do is say goodbye
+###If you don't want an object anymore, all you have to do is say goodbye
 
 It would be nice if real life were like this.
 
@@ -87,7 +99,7 @@ This test case shows a object being created, consulted and then discarded.
 
 	@Test
 	public void testSayGoodbyeToOneKidItIsLikeSendingHimToCollege() throws BedException {
-		BedProvider provider = new SimpleBedProvider();
+		BedProvider provider = new MemoryBedProvider();
 		GoToBed gtb = new GoToBed(provider);
 		
 		Kid newKidOnTheBlock = new Kid();
