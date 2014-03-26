@@ -330,7 +330,7 @@ public class GoToBed {
 
 	public void goodbye(Object obj) throws BedException {
 		Long id;
-		try {
+		try (Connection conn = bedProvider.getConnection()) {
 			id = getIdFor(obj);
 			StringBuilder sb = new StringBuilder();
 			sb.append("DELETE FROM ");
@@ -338,7 +338,6 @@ public class GoToBed {
 			sb.append(" WHERE ID = ");
 			sb.append(id);
 			System.out.println(sb.toString());
-			Connection conn = bedProvider.getConnection();
 			Statement st = conn.createStatement();
 			st.execute(sb.toString());
 			setIdFor(obj, 0L);
